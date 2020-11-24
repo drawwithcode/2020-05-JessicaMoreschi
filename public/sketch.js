@@ -25,6 +25,22 @@ function setup() {
   textSize(20);
   text("Welcome! let's color the guy N. " + myNumber + " to complete the canvas", width / 2, height / 20 * 19);
   pop();
+
+  // Create a button for saving the canvas
+  btn = createButton("Save Canvas");
+  btn.position(width / 2-40, height / 20 * 17.5);
+  btn.mousePressed(saveToFile);
+
+  function windowResized(){
+    resizeCanvas(windowWidth, windowHeight);
+  }
+
+  function saveToFile() {
+    // Save the current canvas to file as png
+    saveCanvas('mycanvas', 'png')
+  }
+
+
 }
 
 function draw() {
