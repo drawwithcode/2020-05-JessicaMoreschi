@@ -18,14 +18,28 @@ let io = socket(server)//variabile input output: crea connessione input (da clie
 io.on("connection", newConnection) //all'evento "connection" esegui "newConnection()"
                                    // = esegui ogni volta che si crea una nuova connessione
 
+let numberUser = 0;
+
 function newConnection(socket){
   console.log("new connection: " + socket.client.id)   //mostra codice connessione cliente
 
+  if (numberUser<5){
+    numberUser++;
+  } else {
+    numberUser =1
+  }
+
   let clientColor = getRandomColor();
+
+  socket.emit("number", numberUser);
 
   socket.emit("color", clientColor);   //manda messaggio "color" con result di getRandomColor
   //send message to all
-  socket.broadcast.emit("newPlayer", clientColor);
+  let clientData = {
+    clientColor: clientColor,
+    numberUser: numberUser
+  }
+  socket.broadcast.emit("newPlayer", clientData);
 
   socket.on("mouse", mouseMessage);  //se arriva un messaggio di tipo "mouse" dal client(nello sketch), mouseMessage()
 
@@ -33,6 +47,7 @@ function newConnection(socket){
     console.log(socket.client.id, dataReceived);
     socket.broadcast.emit("mouseBroadcast", dataReceived) //crea nuovo messaggio da emettere a ogni client
   }
+
 }
 
 
