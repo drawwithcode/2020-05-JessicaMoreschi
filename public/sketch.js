@@ -33,6 +33,7 @@ function newPlayer(newPlayerData) {
 
   push();
   textAlign("center");
+  textSize(15);
   fill(newPlayerData.clientColor);
   text("User " + newPlayerData.numberUser + " has joined", width / 10*9, height / 20 * 19);
   pop();
@@ -57,12 +58,13 @@ function setup() {
   push();
   textAlign("center");
   fill(myColor);
+  textSize(20);
   text("Welcome! let's color the guy n. " + myNumber, width / 2, height / 20 * 19);
   pop();
 }
 
 function draw() {
-image(myImage, 0, 0, windowWidth);
+image(myImage, 0, 0, windowWidth, windowHeight-windowHeight/5);
 }
 
 function mouseDragged() {
